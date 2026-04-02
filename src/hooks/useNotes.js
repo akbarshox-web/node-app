@@ -1,6 +1,9 @@
 import { useState, useMemo } from 'react'
 import { useLocalStorage } from './useLocalStorage'
-import { v4 as uuidv4 } from 'uuid'
+
+function generateId() {
+  return crypto.randomUUID()
+}
 
 export function useNotes() {
   const [notes, setNotes] = useLocalStorage('reakt-notes', [])
@@ -20,7 +23,7 @@ export function useNotes() {
 
   const addNote = ({ title, content, category }) => {
     const newNote = {
-      id: uuidv4(),
+      id: generateId(),
       title: title.trim() || 'Untitled',
       content: content.trim(),
       category,
